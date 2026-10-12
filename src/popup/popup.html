@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Fallacy Highlighter</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <header>
+      <img src="../../icons/icon48.png" width="32" height="32" alt="">
+      <div>
+        <h1>Fallacy Highlighter</h1>
+        <p id="engine" class="muted">&nbsp;</p>
+      </div>
+    </header>
+
+    <div class="actions">
+      <button id="analyze" class="primary" type="button">Analyze this page</button>
+      <button id="selection" type="button">Analyze selected text</button>
+      <button id="clear" class="ghost" type="button">Clear highlights</button>
+    </div>
+
+    <p id="msg" role="status" aria-live="polite"></p>
+    <p id="last" class="muted"></p>
+
+    <footer>
+      <a href="#" id="settings">Settings</a>
+      <span id="shortcut" class="muted"></span>
+    </footer>
+  </main>
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

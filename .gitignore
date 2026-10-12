@@ -1,0 +1,29 @@
+# Secrets and local config
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+credentials*.json
+
+# Packaged extension builds (a .pem from "Pack extension" is a private signing key)
+*.crx
+*.zip
+
+# Local review / test artifacts
+.requirements-verifier/
+PRE_PUBLISH_REVIEW.md
+
+# Dependencies and output
+node_modules/
+dist/
+build/
+coverage/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

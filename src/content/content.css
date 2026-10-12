@@ -1,0 +1,56 @@
+/* Highlight styles injected into the page. Everything is prefixed with lfh- and uses
+   !important so site styles for <mark> don't override it. */
+
+mark.lfh-mark {
+  all: unset;
+  display: inline !important;
+  color: inherit !important;
+  background-color: var(--lfh-bg) !important;
+  border-bottom: 2px solid var(--lfh-c) !important;
+  border-radius: 2px !important;
+  padding: 0 1px !important;
+  cursor: help !important;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-color .2s ease, outline-color .2s ease;
+}
+
+mark.lfh-mark.lfh-f-formal      { --lfh-c: #7c3aed; --lfh-bg: rgba(124, 58, 237, .15); }
+mark.lfh-mark.lfh-f-relevance   { --lfh-c: #e11d48; --lfh-bg: rgba(225, 29, 72, .13); }
+mark.lfh-mark.lfh-f-presumption { --lfh-c: #d97706; --lfh-bg: rgba(217, 119, 6, .17); }
+mark.lfh-mark.lfh-f-ambiguity   { --lfh-c: #0891b2; --lfh-bg: rgba(8, 145, 178, .15); }
+
+/* Low confidence: dashed underline, no fill, so it reads as tentative. */
+mark.lfh-mark.lfh-c-low { background-color: transparent !important; border-bottom-style: dashed !important; }
+/* High confidence: slightly heavier underline. */
+mark.lfh-mark.lfh-c-high { border-bottom-width: 3px !important; }
+
+/* Nested highlights: don't stack fills. */
+mark.lfh-mark mark.lfh-mark { background-color: transparent !important; }
+
+/* Hover / active: deepen the fill (works across line breaks and inline markup). */
+mark.lfh-mark:hover,
+mark.lfh-mark.lfh-active {
+  background-color: color-mix(in srgb, var(--lfh-c) 30%, transparent) !important;
+}
+mark.lfh-mark:focus-visible {
+  outline: 2px solid var(--lfh-c) !important;
+  outline-offset: 1px !important;
+}
+
+mark.lfh-mark.lfh-off {
+  background-color: transparent !important;
+  border-bottom-color: transparent !important;
+  outline: none !important;
+  cursor: inherit !important;
+}
+
+mark.lfh-mark.lfh-flash { animation: lfh-flash 1.6s ease-out 1; }
+@keyframes lfh-flash {
+  0%, 30% { background-color: var(--lfh-c); color: #fff; }
+  100% { background-color: var(--lfh-bg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  mark.lfh-mark.lfh-flash { animation: none; outline: 3px solid var(--lfh-c) !important; }
+}

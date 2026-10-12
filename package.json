@@ -1,0 +1,14 @@
+{
+  "name": "fallacy-highlighter",
+  "version": "0.3.0",
+  "description": "Chrome extension that highlights possible logical fallacies on web pages.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

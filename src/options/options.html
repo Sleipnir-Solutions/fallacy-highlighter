@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fallacy Highlighter · Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main>
+    <header class="top">
+      <img src="../../icons/icon128.png" width="48" height="48" alt="">
+      <div>
+        <h1>Fallacy Highlighter</h1>
+        <p class="muted">Highlights possible logical fallacies on the page you're reading, explains the gap in the reasoning, and suggests a question to ask.</p>
+      </div>
+    </header>
+
+    <section>
+      <h2>Claude API key</h2>
+      <p class="muted">Needed for real argument analysis. Get a key at <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a>. It's stored only in this browser profile (not synced) and sent only to the Claude API. Settings save automatically.</p>
+      <div class="row">
+        <input id="apiKey" type="password" autocomplete="off" spellcheck="false" placeholder="sk-ant-…" aria-label="Claude API key">
+        <button id="toggleKey" type="button" class="ghost">Show</button>
+        <button id="testKey" type="button">Test key</button>
+      </div>
+      <p id="keyMsg" class="msg" role="status" aria-live="polite"></p>
+    </section>
+
+    <section>
+      <h2>Model</h2>
+      <div class="row">
+        <select id="model" aria-label="Model"></select>
+        <input id="customModel" type="text" spellcheck="false" placeholder="custom model id" aria-label="Custom model id" hidden>
+      </div>
+      <p class="muted">Sonnet is a good balance of quality and cost. A typical article (5–10k words) costs a few cents. "Test key" loads every model your key can use.</p>
+    </section>
+
+    <section>
+      <h2>Engine</h2>
+      <fieldset>
+        <legend class="sr">Engine</legend>
+        <label><input type="radio" name="engine" value="auto"> <span><b>Auto</b> — Claude when a key is set; local pattern cues otherwise, or if the API call fails.</span></label>
+        <label><input type="radio" name="engine" value="claude"> <span><b>Claude only</b> — show an error instead of falling back.</span></label>
+        <label><input type="radio" name="engine" value="local"> <span><b>Local pattern cues only</b> — nothing leaves your browser. Matches wording only, so it misses most fallacies and can misfire.</span></label>
+      </fieldset>
+    </section>
+
+    <section>
+      <h2>Sensitivity</h2>
+      <fieldset>
+        <legend class="sr">Sensitivity</legend>
+        <label><input type="radio" name="sensitivity" value="fewer"> <span><b>Fewer flags</b> — only high-confidence findings (≥ 0.70).</span></label>
+        <label><input type="radio" name="sensitivity" value="balanced"> <span><b>Balanced</b> — medium confidence and up (≥ 0.50).</span></label>
+        <label><input type="radio" name="sensitivity" value="more"> <span><b>More flags</b> — include arguable cases (≥ 0.30). Expect more false positives.</span></label>
+      </fieldset>
+    </section>
+
+    <section>
+      <h2>Page text</h2>
+      <label class="inline">Analyze up to
+        <select id="maxChars" aria-label="Maximum characters">
+          <option value="20000">20,000</option>
+          <option value="50000">50,000</option>
+          <option value="100000">100,000</option>
+          <option value="200000">200,000</option>
+        </select>
+        characters per page
+      </label>
+      <label class="check"><input type="checkbox" id="preferMain"> <span>Prefer the main article when the page marks one (skips sidebars and, often, comments)</span></label>
+    </section>
+
+    <div id="saveMsg" class="toast" role="status" aria-live="polite"></div>
+
+    <section class="about">
+      <h2>How to read the highlights</h2>
+      <ul class="legend">
+        <li><span class="sw" style="--c:#e11d48"></span><span><b>Relevance</b> — support that feels relevant but doesn't bear on the claim (ad hominem, straw man, bandwagon…)</span></li>
+        <li><span class="sw" style="--c:#d97706"></span><span><b>Presumption / weak induction</b> — hidden assumptions or conclusions bigger than the evidence (false dilemma, cherry picking, slippery slope…)</span></li>
+        <li><span class="sw" style="--c:#0891b2"></span><span><b>Ambiguity</b> — a word or claim doing double duty (equivocation, motte and bailey…)</span></li>
+        <li><span class="sw" style="--c:#7c3aed"></span><span><b>Formal</b> — invalid structure (affirming the consequent…)</span></li>
+      </ul>
+      <p class="muted">Solid underline = medium or high confidence; dashed = low. Each highlight is a <em>possible</em> issue, not a verdict: the same pattern can be reasonable in one context and fallacious in another, and a flawed argument doesn't make its conclusion false. Automated detection is imperfect. In the MAFALDA benchmark (Helwe et al., NAACL 2024), human annotators scored far higher at spotting <em>whether</em> a passage is fallacious (F1 0.749) than at naming <em>which</em> fallacy it is (F1 0.186), which is why each highlight leads with the family.</p>
+      <p class="muted">Privacy: when Claude is used, the visible text of the page (or your selection), plus the page title and web address, is sent to Anthropic's API under your key. Nothing is sent until you start an analysis. Tip: use a key from its own Anthropic Console workspace with a monthly spend limit.</p>
+    </section>
+  </main>
+  <script src="options.js" type="module"></script>
+</body>
+</html>
